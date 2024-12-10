@@ -1,52 +1,45 @@
-package days;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day6 {
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
+
+        List<String> lines = Utils.getLinesFromFile();
 
         long part1Result, part2Result;
 
-//        part1Result = part1Result(lines);
+        part1Result = part1Result(lines);
         part2Result = part2Result(lines);
 
-//        System.out.println("Part 1 result: " + part1Result);
+        System.out.println("Part 1 result: " + part1Result);
         System.out.println("Part 2 result: " + part2Result);
 
     }
 
-    private long part1Result(List<String> lines) {
+    private static long part1Result(List<String> lines) {
 
         int countOfUsedBoxes = 0;
 
-        char[][] arr = new char[lines.size()][lines.get(0).length()];
+        char[][] arr = new char[lines.size()][lines.getFirst().length()];
 
         makeArray(lines, arr);
-
-//        countOfUsedBoxes = countUsedBoxes(arr, countOfUsedBoxes);
 
         return countOfUsedBoxes;
     }
 
-    private long part2Result(List<String> lines) {
+    private static long part2Result(List<String> lines) {
 
-        int countOfUsedBoxes = 0;
         int holeCount = 0, x = -1, y = -1;
 
 
-        char[][] arr = new char[lines.size()][lines.get(0).length()];
-        int[] newCoordinates = new int[2];
+        char[][] arr = new char[lines.size()][lines.getFirst().length()];
+        int[] newCoordinates;
         boolean isHoleWorked;
 
         makeArray(lines, arr);
 
         do {
-
-            isHoleWorked = false;
-
-//            System.out.println("XX: " + x + " YY: " + y);
 
             makeArray(lines, arr);
 
@@ -58,23 +51,11 @@ public class Day6 {
 
             arr[x][y] = 'O';
 
-            isHoleWorked = countUsedBoxes(arr, countOfUsedBoxes, isHoleWorked);
+            isHoleWorked = countUsedBoxes(arr);
 
             if (isHoleWorked) {
 
-//                System.out.println("Yes");
-
                 holeCount++;
-
-//                for (int i = 0; i < arr.length; i++) {
-//                    for (int j = 0; j < arr[i].length; j++) {
-//                        System.out.print(arr[i][j]);
-//                    }
-//                    System.out.println();
-//                }
-
-//                System.out.println("---------------------------------------------------------------");
-
 
             }
 
@@ -90,7 +71,7 @@ public class Day6 {
         return holeCount;
     }
 
-    private int[] putHole(char[][] arr, int x, int y) {
+    private static int[] putHole(char[][] arr, int x, int y) {
 
         int[] newCoordinates = new int[2];
         newCoordinates[0] = arr.length - 1;
@@ -123,12 +104,8 @@ public class Day6 {
         return newCoordinates;
     }
 
-    private boolean isNotNext(int i, int j, int x, int y) {
+    private static boolean isNotNext(int i, int j, int x, int y) {
 
-        // 1:0 0:9
-//        System.out.println("i: " + i + " j: " + j + " x: " + x + " y: " + y);
-
-        // is (i, j) nexter than (x, y)
         if (i < x) {
             return false;
         } else if (i == x) {
@@ -139,13 +116,11 @@ public class Day6 {
 
     }
 
-    private boolean countUsedBoxes(char[][] arr, int countOfUsedBoxes, boolean isHoleWorked) {
-
-        int count = 0;
+    private static boolean countUsedBoxes(char[][] arr) {
 
         String flag = "up";
         boolean isOver = false;
-        int x = 0, y = 0, x1 = 0, y1 = 0;
+        int x, y;
 
         List<Integer> xCoordinates = new ArrayList<>();
         List<Integer> yCoordinates = new ArrayList<>();
@@ -166,8 +141,6 @@ public class Day6 {
                                 for (int p = x; p >= 0; p--) {
                                     if (arr[p][y] != '#' && arr[p][y] != 'O') {
                                         arr[p][y] = 'X';
-
-
                                     } else {
 
                                         if (isUsedBox(xCoordinates, yCoordinates, p, y, flags, flag)) {
@@ -255,8 +228,6 @@ public class Day6 {
                             }
                         }
 
-                        count++;
-
 
                     }
 
@@ -269,18 +240,10 @@ public class Day6 {
 
         }
 
-//        for (int i = 0; i < arr.length; i++) {
-//            for (int j = 0; j < arr[i].length; j++) {
-//                if (arr[i][j] == 'X') {
-//                    countOfUsedBoxes++;
-//                }
-//            }
-//        }
-
         return false;
     }
 
-    private boolean isUsedBox(List<Integer> xCoordinates, List<Integer> yCoordinates, int p, int y, List<String> flags, String flag) {
+    private static boolean isUsedBox(List<Integer> xCoordinates, List<Integer> yCoordinates, int p, int y, List<String> flags, String flag) {
 
         for (int i = 0; i < xCoordinates.size(); i++) {
             if (xCoordinates.get(i) == p && yCoordinates.get(i) == y && flags.get(i).equals(flag)) {
@@ -299,20 +262,7 @@ public class Day6 {
 
     }
 
-//    private long part2Result(List<String> lines) {
-//
-//        int countOfSpecialWords = 0;
-//
-//        char[][] arr = new char[lines.size()][lines.get(0).length()];
-//
-//        makeArray(lines, arr);
-//
-//        countOfSpecialWords = searchForX_MAS(arr, countOfSpecialWords);
-//
-//        return countOfSpecialWords;
-//    }
-
-    private void makeArray(List<String> lines, char[][] arr) {
+    private static void makeArray(List<String> lines, char[][] arr) {
         for (int i = 0; i < lines.size(); i++) {
             for (int j = 0; j < lines.get(i).length(); j++) {
                 arr[i][j] = lines.get(i).charAt(j);

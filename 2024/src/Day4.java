@@ -1,12 +1,12 @@
-package days;
-
 import java.util.List;
 
 public class Day4 {
 
     private static final char[] specialChars = {'M', 'A', 'S'};
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
+
+        List<String> lines = Utils.getLinesFromFile();
 
         long part1Result, part2Result;
 
@@ -18,11 +18,11 @@ public class Day4 {
 
     }
 
-    private long part1Result(List<String> lines) {
+    private static long part1Result(List<String> lines) {
 
         int countOfSpecialWords = 0;
 
-        char[][] arr = new char[lines.size()][lines.get(0).length()];
+        char[][] arr = new char[lines.size()][lines.getFirst().length()];
 
         makeArray(lines, arr);
 
@@ -31,11 +31,11 @@ public class Day4 {
         return countOfSpecialWords;
     }
 
-    private long part2Result(List<String> lines) {
+    private static long part2Result(List<String> lines) {
 
         int countOfSpecialWords = 0;
 
-        char[][] arr = new char[lines.size()][lines.get(0).length()];
+        char[][] arr = new char[lines.size()][lines.getFirst().length()];
 
         makeArray(lines, arr);
 
@@ -44,7 +44,7 @@ public class Day4 {
         return countOfSpecialWords;
     }
 
-    private int searchForXMAS(char[][] arr, int countOfSpecialWords) {
+    private static int searchForXMAS(char[][] arr, int countOfSpecialWords) {
 
         int index;
 
@@ -211,7 +211,7 @@ public class Day4 {
         return countOfSpecialWords;
     }
 
-    private int searchForX_MAS(char[][] arr, int countOfSpecialWords) {
+    private static int searchForX_MAS(char[][] arr, int countOfSpecialWords) {
 
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
@@ -242,7 +242,7 @@ public class Day4 {
         return countOfSpecialWords;
     }
 
-    private void makeArray(List<String> lines, char[][] arr) {
+    private static void makeArray(List<String> lines, char[][] arr) {
         for (int i = 0; i < lines.size(); i++) {
             for (int j = 0; j < lines.get(i).length(); j++) {
                 arr[i][j] = lines.get(i).charAt(j);

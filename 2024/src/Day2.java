@@ -1,11 +1,11 @@
-package days;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day2 {
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
+
+        List<String> lines = Utils.getLinesFromFile();
 
         long part1Result, part2Result;
 
@@ -20,7 +20,7 @@ public class Day2 {
         System.out.println("Part 2 result: " + part2Result);
     }
 
-    private long part1Result(List<List<Long>> lists) {
+    private static long part1Result(List<List<Long>> lists) {
 
         int countOfSafeLines = 0;
 
@@ -35,7 +35,7 @@ public class Day2 {
         return countOfSafeLines;
     }
 
-    public long part2Result(List<List<Long>> lists) {
+    private static long part2Result(List<List<Long>> lists) {
 
         int countOfSafeLines = 0;
 
@@ -58,7 +58,7 @@ public class Day2 {
         return countOfSafeLines;
     }
 
-    private boolean isLineSafe(List<Long> list) {
+    private static boolean isLineSafe(List<Long> list) {
 
         boolean isIncrease = false;
         long difference;
@@ -66,7 +66,7 @@ public class Day2 {
         for (int i = 0; i < list.size(); i++) {
             if (i == 1) {
 
-                difference = list.get(i) - list.get(0);
+                difference = list.get(i) - list.getFirst();
 
                 if (difference == 0 || Math.abs(difference) > 3) {
                     return false;
@@ -87,7 +87,7 @@ public class Day2 {
         return true;
     }
 
-    private void assignNumbersToLists(List<String> lines, List<List<Long>> lists) {
+    private static void assignNumbersToLists(List<String> lines, List<List<Long>> lists) {
 
         for (String line : lines) {
             String[] parts = line.split(" ");

@@ -1,20 +1,17 @@
-package days;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 public class Day5 {
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
 
-        long sum = 0;
+        List<String> lines = Utils.getLinesFromFile();
 
         List<Long> pageNumbersOne = new ArrayList<>();
         List<Long> pageNumbersTwo = new ArrayList<>();
         List<List<Long>> givenOrder = new ArrayList<>();
-        int i = 0;
+        int i, part1Result = 0, part2Result = 0;
 
         for (i = 0; i < lines.size(); i++) {
 
@@ -23,15 +20,11 @@ public class Day5 {
             }
 
             String[] parts = lines.get(i).split("\\|");
-
-            System.out.println(parts[0] + " " + parts[1]);
             long pageNumber = Long.parseLong(parts[0]);
             long beforePageNumber = Long.parseLong(parts[1]);
             pageNumbersOne.add(pageNumber);
             pageNumbersTwo.add(beforePageNumber);
         }
-
-        System.out.println("\n\n\n\n\n");
 
         for (int j = i + 1; j < lines.size(); j++) {
 
@@ -46,17 +39,7 @@ public class Day5 {
 
         }
 
-//        // sort map by value
-//        pageNumbers = pageNumbers.entrySet().stream()
-//                .sorted(Map.Entry.comparingByValue())
-//                .collect(HashMap::new, (m, e) -> m.put(e.getKey(), e.getValue()), Map::putAll);
-
-        // print data
-//        for (Map.Entry<Long, Long> entry : pageNumbers.entrySet()) {
-//            System.out.println(entry.getKey() + " " + entry.getValue());
-//        }
-
-        boolean isRight = true;
+        boolean isRight;
 
         for (List<Long> order : givenOrder) {
 
@@ -65,7 +48,7 @@ public class Day5 {
             for (int j = 0; j < order.size(); j++) {
                 for (int k = j + 1; k < order.size(); k++) {
                     for (int l = 0; l < pageNumbersOne.size(); l++) {
-                        if (pageNumbersOne.get(l) == order.get(k) && pageNumbersTwo.get(l) == order.get(j)) {
+                        if (Objects.equals(pageNumbersOne.get(l), order.get(k)) && Objects.equals(pageNumbersTwo.get(l), order.get(j))) {
                             isRight = false;
                             break;
                         }
@@ -75,34 +58,19 @@ public class Day5 {
 
             if (!isRight) {
                 reorderIt(order, pageNumbersOne, pageNumbersTwo);
-
-                System.out.print("Reordered: ");
-                for (Long pageNumber : order) {
-                    System.out.print(pageNumber + " ");
-                }
-
-                sum += order.get(order.size() / 2);
-
-                System.out.println();
-
-            }
-
-            if (isRight) {
-                System.out.println(order.get(order.size() / 2));
-//                sum += order.get(order.size() / 2);
+                part2Result += order.get(order.size() / 2);
             } else {
-                System.out.println("NO");
+                part1Result += order.get(order.size() / 2);
             }
 
         }
 
-
-        System.out.println(sum);
-
+        System.out.println("Part 1 result: " + part1Result);
+        System.out.println("Part 2 result: " + part2Result);
 
     }
 
-    private void reorderIt(List<Long> order, List<Long> pageNumbersOne, List<Long> pageNumbersTwo) {
+    private static void reorderIt(List<Long> order, List<Long> pageNumbersOne, List<Long> pageNumbersTwo) {
 
         boolean isRight = false;
 
@@ -115,7 +83,7 @@ public class Day5 {
                     isRight = true;
 
                     for (int l = 0; l < pageNumbersOne.size(); l++) {
-                        if (pageNumbersOne.get(l) == order.get(k) && pageNumbersTwo.get(l) == order.get(j)) {
+                        if (Objects.equals(pageNumbersOne.get(l), order.get(k)) && Objects.equals(pageNumbersTwo.get(l), order.get(j))) {
                             long temp = order.get(j);
                             order.set(j, order.get(k));
                             order.set(k, temp);

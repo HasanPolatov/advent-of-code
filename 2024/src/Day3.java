@@ -1,10 +1,10 @@
-package days;
-
 import java.util.List;
 
 public class Day3 {
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
+
+        List<String> lines = Utils.getLinesFromFile();
 
         long part1Result, part2Result;
 
@@ -15,7 +15,7 @@ public class Day3 {
         System.out.println("Part 2 result: " + part2Result);
     }
 
-    private long part1Result(List<String> lines) {
+    private static long part1Result(List<String> lines) {
 
         long sum = 0;
 
@@ -28,7 +28,7 @@ public class Day3 {
         return sum;
     }
 
-    public long part2Result(List<String> lines) {
+    private static long part2Result(List<String> lines) {
 
         boolean isForDont = true;
         int index, startIndex = 0;
@@ -72,11 +72,11 @@ public class Day3 {
     }
 
 
-    private long calculateSum(String line, long sum) {
+    private static long calculateSum(String line, long sum) {
 
         String delimiter = "mul\\(";
-        String numberOne;
-        String numberTwo;
+        StringBuilder numberOne;
+        StringBuilder numberTwo;
         long numberOneLong;
         long numberTwoLong;
         boolean firstNumberComplete;
@@ -94,8 +94,8 @@ public class Day3 {
                 continue;
             }
 
-            numberOne = "";
-            numberTwo = "";
+            numberOne = new StringBuilder();
+            numberTwo = new StringBuilder();
             firstNumberComplete = false;
 
             for (int i = 0; i < part.length(); i++) {
@@ -107,9 +107,9 @@ public class Day3 {
                     break;
                 } else if (part.charAt(i) == ')') {
 
-                    if (isNumber(numberOne) && isNumber(numberTwo)) {
-                        numberOneLong = Long.parseLong(numberOne);
-                        numberTwoLong = Long.parseLong(numberTwo);
+                    if (isNumber(numberOne.toString()) && isNumber(numberTwo.toString())) {
+                        numberOneLong = Long.parseLong(numberOne.toString());
+                        numberTwoLong = Long.parseLong(numberTwo.toString());
 
                         sum += numberOneLong * numberTwoLong;
                     }
@@ -118,9 +118,9 @@ public class Day3 {
                 }
 
                 if (firstNumberComplete) {
-                    numberTwo = numberTwo + part.charAt(i);
+                    numberTwo.append(part.charAt(i));
                 } else {
-                    numberOne = numberOne + part.charAt(i);
+                    numberOne.append(part.charAt(i));
                 }
 
             }
@@ -130,7 +130,7 @@ public class Day3 {
         return sum;
     }
 
-    private boolean isNumber(String str) {
+    private static boolean isNumber(String str) {
         try {
             Long.parseLong(str);
             return true;

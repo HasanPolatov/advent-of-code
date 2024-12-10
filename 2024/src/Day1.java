@@ -1,11 +1,11 @@
-package days;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day1 {
 
-    public void solve(List<String> lines) {
+    public static void main(String[] args) {
+
+        List<String> lines = Utils.getLinesFromFile();
 
         long part1Result, part2Result;
 
@@ -21,7 +21,7 @@ public class Day1 {
         System.out.println("Part 2 result: " + part2Result);
     }
 
-    private long part1Result(List<Long> listA, List<Long> listB) {
+    private static long part1Result(List<Long> listA, List<Long> listB) {
 
         listA.sort(Long::compareTo);
         listB.sort(Long::compareTo);
@@ -33,7 +33,7 @@ public class Day1 {
         return distanceSum;
     }
 
-    public long part2Result(List<Long> listA, List<Long> listB) {
+    private static long part2Result(List<Long> listA, List<Long> listB) {
 
         long result = 0;
         int count;
@@ -56,7 +56,7 @@ public class Day1 {
         return result;
     }
 
-    private void assignNumbersToLists(List<String> lines, List<Long> listA, List<Long> listB) {
+    private static void assignNumbersToLists(List<String> lines, List<Long> listA, List<Long> listB) {
 
         for (String line : lines) {
             String[] parts = line.split(" {3}");
