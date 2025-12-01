@@ -20,12 +20,8 @@ public class Day1 {
         System.out.println("Part 2 result: " + part2Result);
     }
 
-    private static long part1Result(
-        List<String> directions,
-        List<Long> values
-    ) {
-        Long sum = 50L,
-            count = 0L;
+    private static long part1Result(List<String> directions, List<Long> values) {
+        Long sum = 50L, count = 0L;
 
         for (int i = 0; i < directions.size(); i++) {
             if (directions.get(i).charAt(0) == 'R') {
@@ -50,13 +46,8 @@ public class Day1 {
         return count;
     }
 
-    private static long part2Result(
-        List<String> directions,
-        List<Long> values
-    ) {
-        Long sum = 50L,
-            count = 0L,
-            current = 50L;
+    private static long part2Result(List<String> directions, List<Long> values) {
+        Long sum = 50L, count = 0L, current = 50L;
 
         for (int i = 0; i < directions.size(); i++) {
             if (directions.get(i).charAt(0) == 'R') {
@@ -89,10 +80,7 @@ public class Day1 {
     }
 
     private static void assignNumbersToLists(
-        List<String> lines,
-        List<String> directions,
-        List<Long> values
-    ) {
+            List<String> lines, List<String> directions, List<Long> values) {
         for (String line : lines) {
             directions.add(String.valueOf(line.charAt(0)));
             values.add(Long.parseLong(line.substring(1)));
