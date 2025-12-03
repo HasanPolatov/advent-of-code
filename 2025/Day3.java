@@ -8,14 +8,24 @@ public class Day3 {
 
         long part1Result, part2Result;
 
-        // part1Result = part1Result(lines);
+        part1Result = part1Result(lines);
         part2Result = part2Result(lines);
 
-        // System.out.println("Part 1 result: " + part1Result);
+        System.out.println("Part 1 result: " + part1Result);
         System.out.println("Part 2 result: " + part2Result);
     }
 
+    private static long part1Result(List<String> lines) {
+
+        return calculate(lines, 2);
+    }
+
     private static long part2Result(List<String> lines) {
+
+        return calculate(lines, 12);
+    }
+
+    private static long calculate(List<String> lines, int neededNumbersSize) {
 
         long result = 0;
         long sum = 0, temp;
@@ -32,13 +42,14 @@ public class Day3 {
                     numbers.add(Long.parseLong(line.substring(i, i + 1)));
                 } else {
                     temp = Long.parseLong(line.substring(i, i + 1));
-                    if ((line.length() - (i + 1)) == (11 - numbers.size())) {
+                    if ((line.length() - (i + 1)) == (neededNumbersSize - numbers.size() - 1)) {
                         numbers.add(temp);
                     } else {
                         added = false;
                         for (int j = 0; j < numbers.size(); j++) {
                             if (temp > numbers.get(j)
-                                    && ((line.length() - (i + 1)) >= (12 - (j + 1)))) {
+                                    && ((line.length() - (i + 1))
+                                            >= (neededNumbersSize - (j + 1)))) {
                                 if (j == 0) {
                                     numbers.clear();
                                     numbers.add(temp);
@@ -56,7 +67,7 @@ public class Day3 {
                             }
                         }
 
-                        if (!added && numbers.size() < 12) {
+                        if (!added && numbers.size() < neededNumbersSize) {
                             numbers.add(temp);
                         }
                     }
@@ -70,10 +81,5 @@ public class Day3 {
         }
 
         return result;
-    }
-
-    private static long part1Result(List<String> ranges) {
-
-        return 0L;
     }
 }
